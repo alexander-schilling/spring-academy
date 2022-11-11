@@ -3,6 +3,7 @@ package com.aclti.academy.models.forms;
 import com.aclti.academy.enums.ErrorCode;
 import com.aclti.academy.models.User;
 import com.aclti.academy.repositories.IUserRepository;
+import com.aclti.academy.services.EncoderService;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.ArrayList;
@@ -30,7 +31,7 @@ public class UserLoginForm {
         }
     }
 
-    private void checkUsernameAndPassword(IUserRepository repository) {
+    private void checkUsernameAndPassword(IUserRepository repository, EncoderService encoderService) {
         user = findUser(repository);
 
         if (user == null) {
@@ -38,20 +39,20 @@ public class UserLoginForm {
             return;
         }
 
-        if (!user.getPassword().equals(password)) {
+        if (!encoderService.matchesPasswords(password, user.getPassword())) {
             errors.add(ErrorCode.USER_WRONG_PASSWORD.getLabel());
             return;
         }
     }
 
-    private void validate(IUserRepository repository) {
+    private void validate(IUserRepository repository, EncoderService encoderService) {
         checkEmptyFields();
-        checkUsernameAndPassword(repository);
+        checkUsernameAndPassword(repository, encoderService);
         validated = true;
     }
 
-    public boolean isValid(IUserRepository repository) {
-        if (!validated) validate(repository);
+    public boolean isValid(IUserRepository repository, EncoderService encoderService) {
+        if (!validated) validate(repository, encoderService);
 
         return errors.size() == 0;
     }
