@@ -1,10 +1,13 @@
 package com.aclti.academy.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.sun.istack.NotNull;
 
 import javax.persistence.*;
 
+/**
+ * Represents an application User, it is identified primarily by the username
+ * @author Alexander Schilling
+ */
 @Entity
 public class User {
     @Id

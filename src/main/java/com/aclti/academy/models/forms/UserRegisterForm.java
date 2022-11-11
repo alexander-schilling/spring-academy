@@ -7,6 +7,10 @@ import com.aclti.academy.repositories.IUserRepository;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Represents the params for the register form and its validation
+ * @author Alexander Schilling
+ */
 public class UserRegisterForm {
     private String username;
     private String password;
@@ -15,7 +19,7 @@ public class UserRegisterForm {
     private String lastName;
 
     private boolean validated = false;
-    private List<String> errors = new ArrayList<>();
+    private final List<String> errors = new ArrayList<>();
 
     private void checkEmptyFields() {
         if (username.isBlank()) {
@@ -49,6 +53,11 @@ public class UserRegisterForm {
         }
     }
 
+    /**
+     * Validates empty fields, username password match and if user exists,
+     * only if previous checks were valid
+     * @param repository User repository
+     */
     private void validate(IUserRepository repository) {
         checkEmptyFields();
         checkPasswordMatch();
@@ -58,12 +67,21 @@ public class UserRegisterForm {
         validated = true;
     }
 
+    /**
+     * Triggers validation if it hasn't run yet, and returns boolean checking errors length
+     * @param repository User repository
+     * @return True if form has no errors
+     */
     public boolean isValid(IUserRepository repository) {
         if (!validated) validate(repository);
 
         return errors.size() == 0;
     }
 
+    /**
+     * Creates a User object with the params of the form
+     * @return User object
+     */
     public User createUser() {
         User user = new User();
         user.setUsername(username);

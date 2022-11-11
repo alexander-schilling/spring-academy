@@ -10,9 +10,12 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
+/**
+ * Controls app courses and routes logic
+ * @author Alexander Schilling
+ */
 @RestController
 @RequestMapping("/courses")
-@CrossOrigin(origins = "*")
 public class CourseController {
     private final ICourseRepository repository;
 
@@ -22,11 +25,20 @@ public class CourseController {
         this.repository = repository;
     }
 
+    /**
+     * Answers the /courses route with a JSON Array with each course
+     * @return ResponseEntity with courses
+     */
     @GetMapping
     public ResponseEntity<Object> index() {
         return new ResponseEntity<>(repository.findAll(), HttpStatus.OK);
     }
 
+    /**
+     * Answers the /courses/{id} route with a JSON Object for the course
+     * @param id Course id
+     * @return ResponseEntity with course if successful
+     */
     @GetMapping("/{id}")
     public ResponseEntity<Object> show(@PathVariable long id) {
         Optional<Course> course = repository.findById(id);

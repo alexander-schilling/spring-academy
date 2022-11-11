@@ -11,11 +11,20 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Handles the generation of the JWT token
+ * @author Alexander Schilling
+ */
 @Service
 public class TokenService {
     @Value("${jwt.secret_key}")
     private String secretKey;
 
+    /**
+     * Generates the token based on a given key
+     * @param key Key identifier
+     * @return JWT Token
+     */
     public String generateToken(String key) {
         List<GrantedAuthority> grantedAuthorities = AuthorityUtils
                 .commaSeparatedStringToAuthorityList("ROLE_USER");

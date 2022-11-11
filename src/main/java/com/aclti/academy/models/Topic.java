@@ -2,6 +2,10 @@ package com.aclti.academy.models;
 
 import javax.persistence.*;
 
+/**
+ * Represents a Topic, it has and id, title, description and content.
+ * @author Alexander Schilling
+ */
 @Entity
 public class Topic {
     @Id
