@@ -1,5 +1,8 @@
 package com.aclti.academy.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.sun.istack.NotNull;
+
 import javax.persistence.*;
 
 @Entity
@@ -7,16 +10,17 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    @Column
     private String firstName;
-    @Column
     private String lastName;
-    @Column
+    @Column(unique = true)
     private String username;
-    @Column
+    @JsonIgnore
     private String password;
-    @Column
     private String token;
+
+    public String getFullName() {
+        return String.format("%s %s", firstName, lastName);
+    }
 
     // START: Getters & Setters
 
