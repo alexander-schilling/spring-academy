@@ -1,5 +1,7 @@
 package com.aclti.academy.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 /**
@@ -16,6 +18,7 @@ public class Topic {
     private String content;
     @ManyToOne(cascade = { CascadeType.REMOVE })
     @JoinColumn(name = "course_id")
+    @JsonIgnore
     private Course course;
 
     // START: Getters & Setters

@@ -15,7 +15,7 @@ public class Course {
     private String title;
     private String description;
     private String imageUrl;
-    @OneToMany(mappedBy = "course")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "course")
     private List<Topic> topics;
 
     // START: Getters & Setters
